@@ -24,6 +24,11 @@ pipeline {
                     }
                 }
             }
+            post {
+                 always {
+                     jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123'
+                 }
+            }
       }
       stage('Push') {
             steps {
@@ -54,14 +59,6 @@ pipeline {
                     archiveArtifacts artifacts: 'zap_report.html'
                 }
           }
-      }
-   }
-   post {
-      success {
-            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123', buildName: "${env.JOB_NAME}", buildNumber: "${env.BUILD_NUMBER}"
-      }
-      failure {
-            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123', state: 'FAILED'
       }
    }
 
