@@ -26,7 +26,7 @@ pipeline {
             }
             post {
                  always {
-                     jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123'
+                     jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net'
                  }
             }
       }
