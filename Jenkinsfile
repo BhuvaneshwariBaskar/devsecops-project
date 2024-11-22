@@ -25,9 +25,20 @@ pipeline {
                 }
             }
             post {
-                 always {
-                     jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net'
-                 }
+                  always {
+                        jiraSendBuildInfo(
+                              site: 'bhuvanavarsha96.atlassian.net',
+                              issueSelector: 'DEV-123',
+                              buildName: "${env.JOB_NAME}",
+                              buildNumber: "${env.BUILD_NUMBER}",
+                              state: currentBuild.result,
+                              buildUrl: "${env.BUILD_URL}",
+                              description: "Build completed with status ${currentBuild.result}",
+                              commit: "${env.GIT_COMMIT}",              // Git commit ID (if using Git)
+                              branch: "${env.GIT_BRANCH}",              // Git branch name (if using Git)
+                              elapsedTime: "${currentBuild.durationString}" // Elapsed time for the build
+                        )
+                  }
             }
       }
       stage('Push') {
