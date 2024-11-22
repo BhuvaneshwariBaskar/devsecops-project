@@ -57,11 +57,12 @@ pipeline {
       }
    }
    post {
-        success {
-            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueSelector: [issueKey: 'DEV-123'], buildName: "${env.JOB_NAME}", buildNumber: "${env.BUILD_NUMBER}"
-        }
-        failure {
-            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueSelector: [issueKey: 'DEV-123'], state: 'FAILED'
-        }
+      success {
+            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123', buildName: "${env.JOB_NAME}", buildNumber: "${env.BUILD_NUMBER}"
+      }
+      failure {
+            jiraSendBuildInfo site: 'bhuvanavarsha96.atlassian.net', issueKey: 'DEV-123', state: 'FAILED'
+      }
    }
+
 }
